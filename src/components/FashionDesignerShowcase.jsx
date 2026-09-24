@@ -110,7 +110,6 @@ export default function FashionDesignerShowcase() {
                 className="still-bg-media still-bg-img"
               />
             )}
-            <div className="hero-video-vignette-overlay" />
           </div>
 
           {/* FRAME 0: HERO COVER PAGE — Full-screen Video + Designer Logo Entry */}

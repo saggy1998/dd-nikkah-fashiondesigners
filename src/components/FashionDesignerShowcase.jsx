@@ -214,9 +214,24 @@ export default function FashionDesignerShowcase() {
             />
           </div>
 
-          {/* FRAME 2: BLANK — Background 2 enters clean, no content overlay */}
-          <section className="snap-frame snap-frame--blank">
-            {/* Intentionally empty: cinematic bg push reveal */}
+          {/* FRAME 2: INTERACTIVE GARMENT HOTSPOTS (Unobstructed lehenga with glowing inspection pins) */}
+          <section className="snap-frame snap-frame--interactive">
+            {/* Elegant Haute Couture Guide Badge */}
+            <motion.div
+              className="garment-hotspots-guide-banner"
+              initial={{ opacity: 0, y: -20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.6 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <span className="guide-sparkle-dot" />
+              <span className="guide-banner-text">Interactive Garment Explorer · Tap any glowing pin</span>
+            </motion.div>
+
+            {/* Clickable / Pulsing Hotspots overlaid directly on the Garment */}
+            <InteractiveHotspots onOpenZoom={(img) => setZoomImage(img)} />
+
+            {/* Standalone scroll cue guiding to Collection Specifications */}
             <motion.button
               type="button"
               className="snap-scroll-cue-btn snap-scroll-cue-btn--standalone"
@@ -229,19 +244,16 @@ export default function FashionDesignerShowcase() {
                 y: { repeat: Infinity, duration: 2.4, ease: "easeInOut" },
               }}
             >
-              <span className="scroll-cue-text">Discover the Craftsmanship</span>
+              <span className="scroll-cue-text">Explore Craftsmanship Specs</span>
               <div className="scroll-cue-line" />
             </motion.button>
           </section>
 
-          {/* FRAME 3: INTERACTIVE HOTSPOTS + COLLECTION SPECS — first content after bg 2 */}
-          <section className="snap-frame snap-frame--interactive">
-            {/* Clickable / Pulsing Hotspots overlaid on the Garment */}
-            <InteractiveHotspots onOpenZoom={(img) => setZoomImage(img)} />
-
+          {/* FRAME 3: EDITORIAL CRAFTSMANSHIP & COLLECTION SPECS (Clean, zero overlap) */}
+          <section className="snap-frame snap-frame--content">
             <div className="snap-content-row snap-content-row--left">
               <motion.article
-                className="snap-card snap-card--left snap-card--interactive"
+                className="snap-card snap-card--left snap-card--editorial"
                 custom="left"
                 variants={cardMotionVariants}
                 initial="hidden"
@@ -250,7 +262,7 @@ export default function FashionDesignerShowcase() {
               >
                 <span className="card-eyebrow">
                   <Sparkles size={13} className="gold-text inline-icon" />
-                  INTERACTIVE GARMENT EXPLORER
+                  HAUTE COUTURE SPECIFICATIONS
                 </span>
 
                 <h2 className="card-headline-serif">
@@ -258,9 +270,9 @@ export default function FashionDesignerShowcase() {
                 </h2>
 
                 <p className="card-body-text">
-                  Hover or tap the glowing hotspots on the bridal attire to inspect the
-                  authentic dabka needlework, hand-cut shisha mirror facets, and scalloped
-                  tilla borders.
+                  Crafted over 480 hours of meticulous hand-embroidery, blending authentic
+                  dabka bullion coils, scalloped tilla borders, and hand-cut convex shisha mirrors
+                  anchored in pure mulberry silk.
                 </p>
 
                 <div className="zoom-tool-prompt-box">
@@ -279,13 +291,20 @@ export default function FashionDesignerShowcase() {
                   </button>
                 </div>
 
-                <div className="card-footer-action">
+                <div className="card-footer-action-split">
+                  <button
+                    type="button"
+                    className="card-cta-secondary-link"
+                    onClick={() => scrollToFrame(2)}
+                  >
+                    <span>← Re-inspect Garment Pins</span>
+                  </button>
                   <button
                     type="button"
                     className="card-cta-gold-link"
                     onClick={() => scrollToFrame(4)}
                   >
-                    <span>View Haute Couture Lookbook</span>
+                    <span>View Haute Lookbook</span>
                     <ArrowRight size={15} />
                   </button>
                 </div>

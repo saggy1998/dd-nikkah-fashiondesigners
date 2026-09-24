@@ -5,8 +5,8 @@
 
 /* ── CSS TOKENS & PALETTE ── */
 :root {
-  --bg-primary: #09090c;
-  --bg-secondary: #101017;
+  --bg-primary: #000000;
+  --bg-secondary: #050508;
   --gold-primary: #d4af37;
   --gold-bright: #f5e6ab;
   --gold-dark: #aa7c11;
@@ -15,7 +15,7 @@
   --text-primary: #ffffff;
   --text-secondary: rgba(255, 255, 255, 0.78);
   --text-muted: rgba(255, 255, 255, 0.52);
-  --card-glass-bg: rgba(10, 10, 14, 0.76);
+  --card-glass-bg: #000000;
   --card-border: 1px solid rgba(212, 175, 55, 0.38);
   --card-border-hover: 1px solid rgba(212, 175, 55, 0.65);
   --card-radius: 24px;
@@ -166,7 +166,7 @@ button {
 /* Designer Logo Entry: Cubic-bezier slide-in to center stage */
 .designer-logo-badge {
   position: relative;
-  background: rgba(14, 14, 20, 0.85);
+  background: #000000;
   backdrop-filter: blur(20px);
   border: 1px solid rgba(212, 175, 55, 0.45);
   border-radius: 999px;
@@ -380,11 +380,12 @@ button {
   display: flex;
   gap: 14px;
   align-items: flex-start;
-  padding: 16px 20px;
-  background: rgba(212, 175, 55, 0.08);
-  border-left: 2px solid var(--gold-primary);
-  border-radius: 8px;
-  margin: 6px 0;
+  padding: 14px 18px;
+  background: #050508;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-left: 3px solid var(--gold-primary);
+  border-radius: 10px;
+  margin: 4px 0;
 }
 
 .quote-mark-icon {
@@ -411,8 +412,8 @@ button {
   display: flex;
   flex-direction: column;
   padding: 10px 14px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #050508;
+  border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 12px;
 }
 
@@ -538,31 +539,52 @@ button {
   font-weight: 600;
 }
 
-/* Hotspot Pop-up Modal */
+/* Hotspot Pop-up Modal (Rendered via React Portal) */
 .hotspot-modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.72);
-  backdrop-filter: blur(10px);
-  z-index: 1000;
+  background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: 10000;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: clamp(14px, 3.5vw, 24px);
+  pointer-events: auto !important;
+  cursor: pointer;
+  touch-action: manipulation;
 }
 
 .hotspot-drawer-card {
-  background: rgba(14, 14, 20, 0.95);
-  border: 1px solid rgba(212, 175, 55, 0.5);
+  position: relative;
+  background: #000000;
+  border: 1.5px solid rgba(212, 175, 55, 0.6);
   border-radius: 20px;
   max-width: 520px;
   width: 100%;
+  max-height: min(680px, calc(100vh - 36px));
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), var(--gold-glow);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 35px rgba(212, 175, 55, 0.2);
+  cursor: default;
+  pointer-events: auto !important;
+  overscroll-behavior: contain;
+}
+
+.drawer-drag-handle-bar {
+  display: none;
 }
 
 .hotspot-drawer-header {
-  padding: 20px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: rgba(14, 14, 20, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 18px 22px;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -582,33 +604,43 @@ button {
 
 .hotspot-drawer-title {
   font-family: var(--font-serif);
-  font-size: 1.35rem;
+  font-size: clamp(1.15rem, 2.5vw, 1.35rem);
   margin-top: 4px;
   color: #ffffff;
 }
 
 .hotspot-close-btn {
-  width: 32px;
-  height: 32px;
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+  min-height: 42px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-secondary);
+  color: #ffffff;
+  cursor: pointer;
+  pointer-events: auto !important;
   transition: all 0.2s ease;
+  touch-action: manipulation;
+  z-index: 10;
 }
 
 .hotspot-close-btn:hover {
-  background: rgba(212, 175, 55, 0.25);
+  background: rgba(212, 175, 55, 0.35);
+  border-color: var(--gold-bright);
   color: #ffffff;
+  transform: scale(1.08);
 }
 
 .hotspot-drawer-img-container {
   position: relative;
   width: 100%;
-  height: 220px;
+  height: clamp(170px, 26vh, 220px);
   background: #000;
+  flex-shrink: 0;
 }
 
 .hotspot-drawer-img {
@@ -619,38 +651,43 @@ button {
 
 .hotspot-trigger-zoom-btn {
   position: absolute;
-  bottom: 14px;
-  right: 14px;
-  background: rgba(10, 10, 14, 0.88);
+  bottom: 12px;
+  right: 12px;
+  background: rgba(10, 10, 14, 0.9);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border: 1px solid var(--gold-primary);
   border-radius: 999px;
-  padding: 7px 16px;
-  font-size: 0.75rem;
+  padding: 8px 16px;
+  font-size: 0.74rem;
   font-weight: 600;
-  letter-spacing: 1px;
+  letter-spacing: 0.8px;
   color: var(--gold-bright);
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  pointer-events: auto !important;
   transition: all 0.3s ease;
+  touch-action: manipulation;
 }
 
 .hotspot-trigger-zoom-btn:hover {
   background: var(--gold-primary);
   color: #000;
+  transform: translateY(-2px);
 }
 
 .hotspot-drawer-body {
-  padding: 20px 24px;
+  padding: 18px 22px;
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
 .hotspot-drawer-desc {
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   line-height: 1.6;
   color: var(--text-secondary);
 }
@@ -684,17 +721,125 @@ button {
   margin-top: 2px;
 }
 
+/* Tactile Bottom Dismiss Button inside Drawer */
+.hotspot-drawer-footer {
+  padding: 12px 22px 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hotspot-dismiss-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  background: #050508;
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  color: var(--gold-bright);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  pointer-events: auto !important;
+  transition: all 0.25s ease;
+  touch-action: manipulation;
+}
+
+.hotspot-dismiss-btn:hover {
+  background: rgba(212, 175, 55, 0.2);
+  border-color: var(--gold-bright);
+  color: #ffffff;
+}
+
+/* ── HAUTE COUTURE GUIDE BANNER (FRAME 2) ── */
+.garment-hotspots-guide-banner {
+  position: absolute;
+  top: clamp(68px, 10vh, 96px);
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: fit-content;
+  max-width: calc(100vw - 32px);
+  background: rgba(12, 12, 16, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  border-radius: 999px;
+  padding: 8px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), var(--gold-glow);
+  z-index: 20;
+  pointer-events: auto;
+}
+
+.guide-sparkle-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gold-bright);
+  box-shadow: 0 0 10px var(--gold-bright);
+  animation: pulseDot 2s ease-in-out infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.7; }
+}
+
+.guide-banner-text {
+  font-size: clamp(0.66rem, 1.8vw, 0.76rem);
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: #ffffff;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Split Footer Navigation for Frame 3 */
+.card-footer-action-split {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.card-cta-secondary-link {
+  background: transparent;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  color: var(--gold-bright);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding: 9px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.card-cta-secondary-link:hover {
+  background: rgba(212, 175, 55, 0.15);
+  border-color: var(--gold-bright);
+  color: #ffffff;
+}
+
 /* ── ZOOM TOOL PROMPT IN CARD ── */
 .zoom-tool-prompt-box {
-  background: rgba(212, 175, 55, 0.08);
-  border: 1px solid rgba(212, 175, 55, 0.35);
+  background: #050508;
+  border: 1px solid rgba(212, 175, 55, 0.4);
   border-radius: 16px;
-  padding: 18px 20px;
+  padding: 16px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  margin-top: 8px;
+  margin-top: 6px;
 }
 
 .zoom-prompt-tag {
@@ -752,13 +897,13 @@ button {
 }
 
 .fabric-zoom-modal-window {
-  background: #0d0d12;
-  border: 1px solid rgba(212, 175, 55, 0.45);
+  background: #000000;
+  border: 1.5px solid rgba(212, 175, 55, 0.5);
   border-radius: 24px;
   max-width: 880px;
   width: 100%;
   overflow: hidden;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9), var(--gold-glow);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.95), var(--gold-glow);
 }
 
 .fabric-zoom-header {
@@ -793,9 +938,14 @@ button {
   display: flex;
   gap: 10px;
   padding: 14px 28px;
-  background: rgba(255, 255, 255, 0.02);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: #000000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.fabric-zoom-preset-pills::-webkit-scrollbar {
+  display: none;
 }
 
 .fabric-preset-btn {
@@ -988,8 +1138,8 @@ button {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: rgba(212, 175, 55, 0.12);
-  border: 1px solid rgba(212, 175, 55, 0.35);
+  background: #000000;
+  border: 1px solid rgba(212, 175, 55, 0.45);
   border-radius: 12px;
   padding: 12px 16px;
   font-size: 0.88rem;
@@ -1196,7 +1346,7 @@ button {
 }
 
 .ecommerce-modal-dialog {
-  background: #0f0f15;
+  background: #000000;
   border-left: 1px solid rgba(212, 175, 55, 0.4);
   width: 100%;
   max-width: 580px;
@@ -1241,7 +1391,7 @@ button {
 .ecommerce-product-summary-card {
   display: flex;
   gap: 16px;
-  background: rgba(255, 255, 255, 0.04);
+  background: #000000;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
   padding: 16px;
@@ -1629,36 +1779,564 @@ button {
 .inline-icon { display: inline-block; vertical-align: middle; }
 
 /* ── RESPONSIVE ADAPTATIONS (MOBILE & TABLET) ── */
+/* ══ RESPONSIVE ADAPTATIONS (MOBILE & TABLET - 9:16 OPTIMIZED) ══ */
+
+/* Tablet & Smaller Screens (<= 900px) */
 @media (max-width: 900px) {
-  .pure-white-ecommerce-card {
-    grid-template-columns: 1fr;
-    max-height: 85vh;
-    overflow-y: auto;
+  .snap-frame {
+    padding: 60px 16px 20px;
   }
-  .product-shot-white-frame {
-    height: 240px;
+
+  .snap-content-row--left,
+  .snap-content-row--right {
+    justify-content: center;
+    padding-left: 0;
+    padding-right: 0;
   }
-  .white-card-details-col {
-    padding: 24px 20px;
-  }
+
   .snap-card {
-    padding: 28px 22px;
+    padding: 22px 20px;
+    max-width: calc(100vw - 44px);
+    max-height: calc(100vh - 90px);
+    overflow-y: auto;
+    background: #000000;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 20px rgba(212, 175, 55, 0.12) inset;
   }
-  .designer-stats-grid {
-    grid-template-columns: 1fr;
-  }
+
   .floating-topbar-controls {
-    top: 14px;
-    left: 14px;
-    right: 14px;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 52px;
+    padding: 8px 16px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.4) 70%, transparent 100%);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    pointer-events: none;
   }
+
+  .topbar-actions-group {
+    pointer-events: auto;
+    display: flex;
+    gap: 8px;
+  }
+
   .btn-label {
     display: none;
   }
+
   .topbar-action-btn {
-    padding: 8px;
+    padding: 7px 10px;
+    background: #000000;
+    border: 1px solid rgba(212, 175, 55, 0.45);
+    border-radius: 999px;
   }
+
   .snap-progress-nav {
-    right: 12px;
+    right: 8px;
+    gap: 10px;
+    z-index: 120;
+  }
+
+  .snap-progress-dot {
+    width: 6px;
+    height: 6px;
+  }
+
+  .nav-dot-tooltip {
+    display: none !important;
+  }
+
+  .garment-hotspots-guide-banner {
+    top: 60px;
+    padding: 5px 14px;
+    background: #000000;
+    border: 1px solid rgba(212, 175, 55, 0.45);
+  }
+
+  .guide-banner-text {
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+  }
+}
+
+/* Mobile & Exact 9:16 Viewport (<= 640px and Aspect Ratio <= 9/16) */
+@media (max-width: 640px), (max-aspect-ratio: 9/16) {
+  .snap-frame {
+    padding: 54px 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .snap-content-row--left,
+  .snap-content-row--right {
+    justify-content: center;
+    padding: 0;
+  }
+
+  /* Editorial Card - Crisp Black with Gutter for Nav Dots */
+  .snap-card {
+    padding: 16px 14px;
+    border-radius: 18px;
+    max-width: calc(100vw - 36px);
+    margin-right: 12px;
+    max-height: calc(100vh - 76px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 10px;
+    background: #000000;
+    border: 1px solid rgba(212, 175, 55, 0.45);
+    box-shadow: 0 16px 45px rgba(0, 0, 0, 0.95), 0 0 20px rgba(212, 175, 55, 0.1) inset;
+  }
+
+  .snap-card::-webkit-scrollbar {
+    width: 3px;
+  }
+  .snap-card::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .snap-card::-webkit-scrollbar-thumb {
+    background: rgba(212, 175, 55, 0.35);
+    border-radius: 3px;
+  }
+
+  /* Designer Brand Badge in Frame 1 */
+  .designer-logo-badge {
+    padding: 6px 14px;
+    background: #000000;
+    border: 1px solid rgba(212, 175, 55, 0.5);
+  }
+  .designer-logo-badge--inline {
+    margin-bottom: 2px;
+  }
+  .designer-logo-inner {
+    gap: 8px;
+  }
+  .logo-brand-mark {
+    font-size: 0.92rem;
+    padding-right: 8px;
+  }
+  .logo-brand-name {
+    font-size: 0.82rem;
+  }
+  .logo-brand-sub {
+    font-size: 0.52rem;
+  }
+
+  .card-eyebrow {
+    font-size: 0.62rem;
+    letter-spacing: 1.5px;
+    gap: 5px;
+  }
+
+  .card-headline-serif {
+    font-size: clamp(1.2rem, 5.2vw, 1.4rem);
+    line-height: 1.22;
+  }
+
+  .card-body-text {
+    font-size: 0.8rem;
+    line-height: 1.45;
+    color: var(--text-secondary);
+  }
+
+  /* Quote Box - Crisp Black, Zero Brown */
+  .card-quote-callout {
+    padding: 8px 12px;
+    background: #050508;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-left: 2.5px solid var(--gold-primary);
+    border-radius: 8px;
+    gap: 8px;
+    margin: 2px 0;
+  }
+  .quote-mark-icon {
+    width: 14px;
+    height: 14px;
+  }
+  .quote-text {
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+
+  /* Stats Grid - 3 Columns Inline to Save 130px+ of Vertical Space! */
+  .designer-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin-top: 2px;
+  }
+
+  .stat-pill-item {
+    padding: 5px 6px;
+    background: #050508;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    align-items: center;
+    text-align: center;
+  }
+  .stat-value {
+    font-size: 0.8rem;
+    line-height: 1.2;
+  }
+  .stat-label {
+    font-size: 0.52rem;
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+  }
+
+  .card-footer-action {
+    margin-top: 4px;
+  }
+  .card-cta-gold-link {
+    font-size: 0.74rem;
+    padding: 4px 0;
+    gap: 6px;
+  }
+
+  /* Frame 3: Optical Fabric Viewer Prompt Box */
+  .zoom-tool-prompt-box {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 12px;
+    background: #050508;
+    border: 1px solid rgba(212, 175, 55, 0.38);
+    border-radius: 12px;
+    margin-top: 4px;
+  }
+  .zoom-prompt-tag {
+    font-size: 0.56rem;
+    letter-spacing: 1.2px;
+  }
+  .zoom-prompt-info h4 {
+    font-size: 0.82rem;
+  }
+  .zoom-prompt-info p {
+    font-size: 0.68rem;
+    line-height: 1.3;
+  }
+  .open-magnifier-btn {
+    padding: 7px 12px;
+    font-size: 0.72rem;
+    flex-shrink: 0;
+  }
+
+  .card-footer-action-split {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .card-cta-secondary-link,
+  .card-cta-gold-link {
+    flex: 1;
+    justify-content: center;
+    padding: 8px 6px;
+    font-size: 0.72rem;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  /* Hotspot Pins in Frame 2 */
+  .hotspot-pin-wrapper {
+    gap: 4px;
+  }
+  .hotspot-pulse-button {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    min-height: 32px;
+  }
+  .hotspot-tag-pill {
+    padding: 3px 7px;
+    background: #000000;
+    border: 1px solid rgba(212, 175, 55, 0.45);
+  }
+  .hotspot-tag-text {
+    font-size: 0.56rem;
+    letter-spacing: 0.5px;
+  }
+
+  /* Haute Mobile Bottom Drawer for Hotspots (Never Cuts Off!) */
+  .hotspot-modal-backdrop {
+    align-items: flex-end;
+    padding: 0;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    background: rgba(0, 0, 0, 0.85);
+  }
+
+  .hotspot-drawer-card {
+    background: #000000;
+    max-height: 80vh;
+    border-radius: 20px 20px 0 0;
+    border: 1.5px solid rgba(212, 175, 55, 0.65);
+    border-bottom: none;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 -15px 45px rgba(0, 0, 0, 0.95);
+  }
+
+  .drawer-drag-handle-bar {
+    display: block;
+    width: 38px;
+    height: 3px;
+    border-radius: 999px;
+    background: rgba(212, 175, 55, 0.6);
+    margin: 8px auto 2px;
+    flex-shrink: 0;
+  }
+
+  .hotspot-drawer-header {
+    flex-shrink: 0;
+    padding: 8px 14px 10px;
+    background: #000000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .hotspot-drawer-eyebrow {
+    font-size: 0.62rem;
+  }
+  .hotspot-drawer-title {
+    font-size: 1.1rem;
+    margin-top: 2px;
+  }
+  .hotspot-close-btn {
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    min-height: 34px;
+    background: #000000;
+    border: 1px solid rgba(212, 175, 55, 0.45);
+  }
+
+  .hotspot-drawer-img-container {
+    flex-shrink: 0;
+    height: 130px;
+    background: #000000;
+  }
+
+  .hotspot-trigger-zoom-btn {
+    bottom: 8px;
+    right: 8px;
+    padding: 6px 12px;
+    font-size: 0.68rem;
+    background: #000000;
+  }
+
+  .hotspot-drawer-body {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 12px 14px;
+    gap: 10px;
+    background: #000000;
+  }
+  .hotspot-drawer-desc {
+    font-size: 0.8rem;
+    line-height: 1.45;
+  }
+  .hotspot-specs-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .hotspot-spec-item {
+    flex-direction: column;
+    gap: 3px;
+  }
+  .spec-label {
+    font-size: 0.58rem;
+  }
+  .spec-value {
+    font-size: 0.72rem;
+  }
+
+  /* Pinned, Unclippable Dismiss Button in Drawer Footer */
+  .hotspot-drawer-footer {
+    flex-shrink: 0;
+    padding: 10px 14px max(14px, env(safe-area-inset-bottom));
+    background: #000000;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .hotspot-dismiss-btn {
+    padding: 11px;
+    background: #050508;
+    border: 1px solid rgba(212, 175, 55, 0.55);
+    color: var(--gold-bright);
+    font-size: 0.72rem;
+    letter-spacing: 1px;
+  }
+
+  /* Pure White E-Commerce Presentation Card (Frame 5) */
+  .pure-white-ecommerce-card {
+    background: #ffffff;
+    border-radius: 18px;
+    grid-template-columns: 1fr;
+    max-height: calc(100vh - 74px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.85), 0 0 25px rgba(212, 175, 55, 0.2);
+    margin: 0 auto;
+  }
+  .white-card-media-col {
+    padding: 10px 10px 0;
+    background: #ffffff;
+  }
+  .product-shot-white-frame {
+    height: clamp(130px, 18vh, 165px);
+    background: #ffffff;
+    border-radius: 12px;
+  }
+  .white-card-details-col {
+    padding: 12px 14px 16px;
+    gap: 8px;
+    background: #ffffff;
+  }
+  .white-card-eyebrow {
+    font-size: 0.58rem;
+    letter-spacing: 1.2px;
+  }
+  .white-card-product-title {
+    font-size: 1.22rem;
+    line-height: 1.2;
+    color: #000000;
+  }
+  .white-card-desc {
+    font-size: 0.76rem;
+    line-height: 1.38;
+    color: #333333;
+  }
+  .white-card-price-row {
+    padding: 6px 0;
+    gap: 10px;
+    border-top: 1px solid #eeeeee;
+    border-bottom: 1px solid #eeeeee;
+  }
+  .price-tag {
+    font-size: 1.25rem;
+    color: #000000;
+  }
+  .price-lead-time {
+    font-size: 0.7rem;
+    color: #555555;
+  }
+  .white-card-actions {
+    gap: 6px;
+    margin-top: 2px;
+  }
+  .buy-now-cta-button {
+    padding: 11px 18px;
+    font-size: 0.78rem;
+    background: #000000;
+    color: #ffffff;
+    border: 1.5px solid var(--gold-primary);
+    border-radius: 999px;
+  }
+  .open-magnifier-secondary-btn {
+    padding: 8px 14px;
+    font-size: 0.72rem;
+    background: #f4f4f6;
+    color: #111111;
+    border: 1px solid #dddddd;
+    border-radius: 999px;
+  }
+  .white-card-disclaimer {
+    font-size: 0.62rem;
+    color: #666666;
+    margin-top: 2px;
+  }
+
+  /* Fabric Zoom Magnifier Modal Mobile */
+  .fabric-zoom-modal-backdrop {
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.92);
+  }
+  .fabric-zoom-modal-window {
+    background: #000000;
+    border-radius: 18px;
+    border: 1px solid rgba(212, 175, 55, 0.5);
+    max-height: calc(100vh - 24px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .fabric-zoom-header {
+    flex-shrink: 0;
+    padding: 12px 14px;
+    background: #000000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .fabric-zoom-eyebrow {
+    font-size: 0.6rem;
+    letter-spacing: 1.5px;
+  }
+  .fabric-zoom-title {
+    font-size: 1.15rem;
+  }
+  .fabric-zoom-subtitle {
+    font-size: 0.72rem;
+  }
+  .fabric-zoom-preset-pills {
+    flex-shrink: 0;
+    padding: 8px 12px;
+    background: #000000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .fabric-preset-btn {
+    padding: 5px 12px;
+    font-size: 0.72rem;
+    background: #000000;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  .fabric-zoom-interactive-stage {
+    flex: 1 1 auto;
+    height: clamp(190px, 32vh, 260px);
+    background: #000000;
+  }
+  .fabric-zoom-footer-bar {
+    flex-shrink: 0;
+    padding: 8px 14px;
+    background: #000000;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .zoom-lens-instructions {
+    font-size: 0.68rem;
+  }
+
+  /* E-Commerce Shop Modal Mobile */
+  .ecommerce-modal-backdrop {
+    background: rgba(0, 0, 0, 0.85);
+  }
+  .ecommerce-modal-dialog {
+    background: #000000;
+    padding: 20px 16px;
+    max-width: 100%;
+  }
+  .ecommerce-product-summary-card {
+    background: #000000;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    padding: 10px;
+    gap: 12px;
+  }
+  .ecommerce-summary-img-wrap {
+    width: 65px;
+    height: 80px;
+    background: #ffffff;
+  }
+
+  /* Standalone Scroll Cues */
+  .snap-scroll-cue-btn--standalone {
+    bottom: 14px;
+    z-index: 70;
+  }
+  .scroll-cue-text {
+    font-size: 0.65rem;
+    letter-spacing: 1px;
   }
 }

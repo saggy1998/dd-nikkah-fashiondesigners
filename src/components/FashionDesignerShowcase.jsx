@@ -35,7 +35,7 @@ export default function FashionDesignerShowcase() {
 
   const [activeFrame, setActiveFrame] = useState(0);
   const [isMuted, setIsMuted] = useState(true);
-  const [isVideoHero, setIsVideoHero] = useState(false);
+  const [isVideoHero, setIsVideoHero] = useState(true);
   const [zoomImage, setZoomImage] = useState(null);
   const [isShopModalOpen, setIsShopModalOpen] = useState(false);
 
@@ -85,9 +85,9 @@ export default function FashionDesignerShowcase() {
       <main className="snap-scroll-container" ref={snapContainerRef}>
 
         {/* ────────────────────────────────────────────────────────────
-            PAIR 1: BACKGROUND IMAGE 1
+            PAIR 1: BACKGROUND IMAGE 1 / HERO VIDEO
             Spans Frame 0 & Frame 1.
-            Background 1 stays pinned while scrolling through Frame 0 and 1.
+            Background stays pinned while scrolling through Frame 0 and 1.
         ──────────────────────────────────────────────────────────── */}
         <section className="scrolly-background-pair" id="pair-1">
           {/* Sticky Background 1 Layer */}
@@ -110,12 +110,46 @@ export default function FashionDesignerShowcase() {
                 className="still-bg-media still-bg-img"
               />
             )}
+            <div className="hero-video-vignette-overlay" />
           </div>
 
-          {/* FRAME 0: BLANK — Background 1 enters clean, no content overlay */}
-          <section className="snap-frame snap-frame--blank">
-            {/* Intentionally empty: pure cinematic background reveal */}
-            {/* Scroll cue — subtle, positioned at bottom center */}
+          {/* FRAME 0: HERO COVER PAGE — Full-screen Video + Designer Logo Entry */}
+          <section className="snap-frame snap-frame--hero">
+            <motion.div
+              className="snap-hero-centerpiece"
+              initial={{ opacity: 0, y: -120, scale: 0.94 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <div className="hero-curator-eyebrow">
+                <Sparkles size={12} className="gold-text inline-icon" />
+                <span>DULHAN DIARIES HAUTE ATELIER</span>
+                <Sparkles size={12} className="gold-text inline-icon" />
+              </div>
+
+              {/* Designer Logo Badge Centerpiece */}
+              <div className="designer-hero-logo-card">
+                <span className="logo-streak-shimmer" />
+                <div className="hero-logo-crest-wrap">
+                  <span className="hero-logo-monogram">AM</span>
+                </div>
+                <div className="hero-logo-divider-v" />
+                <div className="hero-logo-titles">
+                  <h1 className="hero-logo-brand-name">{DESIGNER_INFO.brandName}</h1>
+                  <span className="hero-logo-brand-sub">{DESIGNER_INFO.subBrand}</span>
+                </div>
+              </div>
+
+              <div className="hero-edition-line">
+                <span className="hero-edition-pill">{DESIGNER_INFO.edition}</span>
+              </div>
+
+              <p className="hero-tagline-prose">
+                {DESIGNER_INFO.heroSubtitle}
+              </p>
+            </motion.div>
+
+            {/* Standalone scroll cue */}
             <motion.button
               type="button"
               className="snap-scroll-cue-btn snap-scroll-cue-btn--standalone"
@@ -123,7 +157,7 @@ export default function FashionDesignerShowcase() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1, y: [0, 8, 0] }}
               transition={{
-                opacity: { duration: 1.2, delay: 1 },
+                opacity: { duration: 1.2, delay: 1.2 },
                 y: { repeat: Infinity, duration: 2.4, ease: "easeInOut" },
               }}
             >

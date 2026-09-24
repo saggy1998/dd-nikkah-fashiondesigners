@@ -81,7 +81,7 @@ export const MEDIA_PAIRS = {
     id: "pair1",
     bgImage: "/assets/curated/bg_hero_desert_crimson.jpg",
     bgAlt: "Arpita Mehta Bridal Couture Crimson Desert Lookbook",
-    heroVideo: "/assets/videos/hero_runway.mp4",
+    heroVideo: "/assets/videos/nikkah_cover_hero.mp4",
     title: "HERITAGE COUTURE"
   },
   pair2: {

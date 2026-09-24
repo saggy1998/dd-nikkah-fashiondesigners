@@ -442,13 +442,17 @@ button {
 .snap-scroll-cue-btn--standalone {
   margin-top: 0;
   position: absolute;
-  bottom: clamp(28px, 5vh, 56px);
+  bottom: clamp(24px, 4vh, 48px);
   left: 0;
   right: 0;
   margin-left: auto;
   margin-right: auto;
   width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   pointer-events: all;
+  z-index: 50;
 }
 
 .scroll-cue-text {
@@ -2535,7 +2539,16 @@ button {
 
   /* Standalone Scroll Cues */
   .snap-scroll-cue-btn--standalone {
-    bottom: 14px;
+    position: absolute;
+    bottom: max(16px, env(safe-area-inset-bottom));
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     z-index: 70;
   }
   .scroll-cue-text {

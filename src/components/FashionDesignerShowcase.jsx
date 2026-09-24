@@ -161,7 +161,7 @@ export default function FashionDesignerShowcase() {
                 y: { repeat: Infinity, duration: 2.4, ease: "easeInOut" },
               }}
             >
-              <span className="scroll-cue-text">Scroll to Explore Collection</span>
+              <span className="scroll-cue-text">Scroll to Explore Story</span>
               <div className="scroll-cue-line" />
             </motion.button>
           </section>

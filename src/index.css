@@ -1045,18 +1045,22 @@ button {
   background: #000000;
   border: 1.5px solid rgba(212, 175, 55, 0.5);
   border-radius: 24px;
-  max-width: 880px;
+  max-width: 680px;
   width: 100%;
+  max-height: calc(100vh - 36px);
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.95), var(--gold-glow);
 }
 
 .fabric-zoom-header {
-  padding: 24px 28px 18px;
+  padding: 20px 24px 16px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
 }
 
 .fabric-zoom-eyebrow {
@@ -1069,25 +1073,26 @@ button {
 
 .fabric-zoom-title {
   font-family: var(--font-serif);
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   margin-top: 4px;
   color: #ffffff;
 }
 
 .fabric-zoom-subtitle {
-  font-size: 0.86rem;
+  font-size: 0.84rem;
   color: var(--text-muted);
 }
 
 .fabric-zoom-preset-pills {
   display: flex;
   gap: 10px;
-  padding: 14px 28px;
+  padding: 12px 24px;
   background: #000000;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   overflow-x: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  flex-shrink: 0;
 }
 .fabric-zoom-preset-pills::-webkit-scrollbar {
   display: none;
@@ -1113,91 +1118,188 @@ button {
   color: var(--gold-bright);
 }
 
+/* Outer Stage Container for complete uncropped presentation */
+.fabric-zoom-stage-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at center, #0e0e15 0%, #030306 100%);
+  padding: 16px 20px;
+  flex: 1 1 auto;
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* Interactive Stage that fits exact rendered bounds of the image */
 .fabric-zoom-interactive-stage {
   position: relative;
-  width: 100%;
-  height: 480px;
-  background: #000;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  max-width: 100%;
+  line-height: 0;
   overflow: hidden;
+  border-radius: 10px;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85);
   cursor: crosshair;
+  touch-action: none;
 }
 
+/* Full image display with zero cropping in desktop */
 .fabric-zoom-base-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  display: block;
+  max-width: 100%;
+  max-height: min(54vh, 500px);
+  width: auto;
+  height: auto;
+  object-fit: contain;
   user-select: none;
+  pointer-events: none;
 }
 
-/* Glass Magnifier Lens */
+/* Large Square Glass Magnifier Lens */
 .fabric-zoom-lens {
   position: absolute;
-  width: 170px;
-  height: 170px;
-  border-radius: 50%;
+  width: 250px;
+  height: 250px;
+  border-radius: 4px; /* Crisp square loupe form */
   border: 2px solid var(--gold-bright);
-  box-shadow: 0 0 0 4px rgba(10, 10, 14, 0.85), 0 20px 40px rgba(0, 0, 0, 0.8), var(--gold-glow);
+  box-shadow: 
+    0 0 0 3px rgba(10, 10, 14, 0.95),
+    0 24px 50px rgba(0, 0, 0, 0.9),
+    0 0 35px rgba(212, 175, 55, 0.35);
   transform: translate(-50%, -50%);
   pointer-events: none;
   background-repeat: no-repeat;
-  background-size: 350%; /* 2.5x magnification equivalent */
+  background-size: 320%; /* 2.5x - 3.2x ultra inspection */
   opacity: 0;
   transition: opacity 0.2s ease;
   overflow: hidden;
+  z-index: 10;
 }
 
 .fabric-zoom-lens.active {
   opacity: 1;
 }
 
+/* Faceted linear specular glare for square glass */
 .lens-specular-glare {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.35) 0%, transparent 60%);
-  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.08) 25%,
+    transparent 50%,
+    rgba(212, 175, 55, 0.12) 100%
+  );
+  border-radius: 0;
+  pointer-events: none;
+}
+
+/* Haute Horlogerie Reticle Corner Accents */
+.lens-corner-bracket {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: var(--gold-bright);
+  pointer-events: none;
+  opacity: 0.95;
+}
+.lens-corner-bracket.top-left {
+  top: 6px;
+  left: 6px;
+  border-top: 2px solid var(--gold-bright);
+  border-left: 2px solid var(--gold-bright);
+}
+.lens-corner-bracket.top-right {
+  top: 6px;
+  right: 6px;
+  border-top: 2px solid var(--gold-bright);
+  border-right: 2px solid var(--gold-bright);
+}
+.lens-corner-bracket.bottom-left {
+  bottom: 6px;
+  left: 6px;
+  border-bottom: 2px solid var(--gold-bright);
+  border-left: 2px solid var(--gold-bright);
+}
+.lens-corner-bracket.bottom-right {
+  bottom: 6px;
+  right: 6px;
+  border-bottom: 2px solid var(--gold-bright);
+  border-right: 2px solid var(--gold-bright);
 }
 
 .lens-crosshair {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 12px;
-  height: 12px;
+  width: 18px;
+  height: 18px;
   transform: translate(-50%, -50%);
-  border-left: 1px solid rgba(212, 175, 55, 0.6);
-  border-right: 1px solid rgba(212, 175, 55, 0.6);
-  border-top: 1px solid rgba(212, 175, 55, 0.6);
-  border-bottom: 1px solid rgba(212, 175, 55, 0.6);
+  border-left: 1px solid rgba(212, 175, 55, 0.7);
+  border-right: 1px solid rgba(212, 175, 55, 0.7);
+  border-top: 1px solid rgba(212, 175, 55, 0.7);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.7);
 }
 
 .lens-magnification-badge {
   position: absolute;
   bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(10, 10, 14, 0.85);
+  right: 10px;
+  background: rgba(10, 10, 14, 0.9);
   border: 1px solid var(--gold-primary);
-  border-radius: 4px;
-  padding: 2px 6px;
+  border-radius: 3px;
+  padding: 3px 8px;
   font-family: var(--font-display);
-  font-size: 0.62rem;
+  font-size: 0.65rem;
+  letter-spacing: 1px;
   font-weight: 700;
   color: var(--gold-bright);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
-.fabric-zoom-instructions {
-  position: absolute;
-  bottom: 14px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(10, 10, 14, 0.78);
-  backdrop-filter: blur(8px);
-  border-radius: 999px;
-  padding: 6px 18px;
-  font-size: 0.74rem;
-  letter-spacing: 0.5px;
+/* Dedicated Footer Bar Below The Image (Zero overlap with image) */
+.fabric-zoom-footer-bar {
+  flex-shrink: 0;
+  padding: 14px 24px;
+  background: #040407;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.fabric-zoom-instructions-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  letter-spacing: 0.3px;
   color: var(--text-secondary);
-  pointer-events: none;
+}
+
+.fabric-zoom-lens-meta {
+  flex-shrink: 0;
+}
+
+.fabric-lens-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 4px;
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  color: var(--gold-bright);
+  text-transform: uppercase;
 }
 
 /* ── SPECS FRAME (Frame 3) ── */
@@ -2447,21 +2549,22 @@ button {
 
   /* Fabric Zoom Magnifier Modal Mobile */
   .fabric-zoom-modal-backdrop {
-    padding: 10px;
-    background: rgba(0, 0, 0, 0.92);
+    padding: 8px;
+    background: rgba(0, 0, 0, 0.94);
   }
   .fabric-zoom-modal-window {
     background: #000000;
-    border-radius: 18px;
+    border-radius: 16px;
     border: 1px solid rgba(212, 175, 55, 0.5);
-    max-height: calc(100vh - 24px);
+    max-height: calc(100vh - 16px);
+    max-width: 100%;
     display: flex;
     flex-direction: column;
     overflow: hidden;
   }
   .fabric-zoom-header {
     flex-shrink: 0;
-    padding: 12px 14px;
+    padding: 12px 14px 10px;
     background: #000000;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
@@ -2487,19 +2590,81 @@ button {
     background: #000000;
     border: 1px solid rgba(255, 255, 255, 0.15);
   }
-  .fabric-zoom-interactive-stage {
+  .fabric-zoom-stage-container {
+    padding: 8px 10px;
     flex: 1 1 auto;
-    height: clamp(190px, 32vh, 260px);
+    min-height: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .fabric-zoom-interactive-stage {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    max-width: 100%;
+    height: auto;
     background: #000000;
+    border-radius: 8px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+  }
+  .fabric-zoom-base-img {
+    max-height: clamp(230px, 46vh, 380px);
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+  /* Large Square Lens on Mobile */
+  .fabric-zoom-lens {
+    width: clamp(160px, 46vw, 205px);
+    height: clamp(160px, 46vw, 205px);
+    border-radius: 3px;
+    background-size: 300%;
+  }
+  .lens-corner-bracket {
+    width: 10px;
+    height: 10px;
+  }
+  .lens-corner-bracket.top-left,
+  .lens-corner-bracket.top-right {
+    top: 4px;
+  }
+  .lens-corner-bracket.bottom-left,
+  .lens-corner-bracket.bottom-right {
+    bottom: 4px;
+  }
+  .lens-corner-bracket.top-left,
+  .lens-corner-bracket.bottom-left {
+    left: 4px;
+  }
+  .lens-corner-bracket.top-right,
+  .lens-corner-bracket.bottom-right {
+    right: 4px;
+  }
+  .lens-magnification-badge {
+    bottom: 6px;
+    right: 6px;
+    font-size: 0.58rem;
+    padding: 2px 6px;
   }
   .fabric-zoom-footer-bar {
     flex-shrink: 0;
-    padding: 8px 14px;
-    background: #000000;
+    padding: 10px 14px;
+    background: #040407;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
   }
-  .zoom-lens-instructions {
-    font-size: 0.68rem;
+  .fabric-zoom-instructions-text {
+    font-size: 0.72rem;
+    line-height: 1.35;
+  }
+  .fabric-lens-badge {
+    font-size: 0.65rem;
+    padding: 3px 8px;
   }
 
   /* E-Commerce Shop Modal Mobile */

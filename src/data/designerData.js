@@ -22,7 +22,7 @@ export const HOTSPOTS_DATA = [
     category: "METALLIC EMBROIDERY",
     x: 48, // % from left
     y: 44, // % from top
-    previewImg: "/assets/curated/detail_embroidery_zoom.jpg",
+    previewImg: "/assets/curated/bg_zardozi_couture_white.jpg",
     shortDesc: "Intricate metallic threadwork using real silver and gilded copper coils.",
     technique: "Dabka & Nakshi Couching",
     hours: "220 hrs",
@@ -48,7 +48,7 @@ export const HOTSPOTS_DATA = [
     category: "WEAVE & DRAPE",
     x: 68, // % from left
     y: 32, // % from top
-    previewImg: "/assets/curated/detail_veil_jewels.jpg",
+    previewImg: "/assets/curated/bg_zardozi_couture_white.jpg",
     shortDesc: "Feather-light organza veil with hand-cut scalloped borders.",
     technique: "Tilla Jaal & Pearl Moti Finishing",
     hours: "120 hrs",

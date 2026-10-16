@@ -317,7 +317,7 @@ export default function FashionDesignerShowcase() {
                   <button
                     type="button"
                     className="open-magnifier-btn"
-                    onClick={() => setZoomImage("/assets/curated/detail_embroidery_zoom.jpg")}
+                    onClick={() => setZoomImage("/assets/curated/bg_hero_desert_crimson.jpg")}
                   >
                     <ZoomIn size={16} />
                     <span>Launch Lens</span>
@@ -439,7 +439,7 @@ export default function FashionDesignerShowcase() {
                     <button
                       type="button"
                       className="open-magnifier-secondary-btn"
-                      onClick={() => setZoomImage("/assets/curated/detail_embroidery_zoom.jpg")}
+                      onClick={() => setZoomImage("/assets/curated/bg_zardozi_couture_white.jpg")}
                     >
                       <ZoomIn size={16} />
                       <span>Inspect Zardozi Details</span>

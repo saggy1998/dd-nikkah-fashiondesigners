@@ -183,8 +183,17 @@ export default function FabricZoomMagnifier({ activeImage, onClose }) {
             <Sparkles size={14} className="gold-text inline-icon" />
             <span>Hover or drag across garment to inspect microscopic hand-stitching &amp; thread relief</span>
           </div>
-          <div className="fabric-zoom-lens-meta">
+          <div className="fabric-zoom-footer-actions">
             <span className="fabric-lens-badge">2.5× Square Precision Loupe</span>
+            <button
+              type="button"
+              className="fabric-zoom-exit-btn"
+              onClick={onClose}
+              aria-label="Exit Magnifier"
+            >
+              <X size={14} />
+              <span>Exit Magnifier</span>
+            </button>
           </div>
         </div>
       </motion.div>

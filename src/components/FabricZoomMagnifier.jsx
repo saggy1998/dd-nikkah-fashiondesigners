@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
-import { X, Eye, Sparkles } from "lucide-react";
+import { X, Eye, Sparkles, EyeOff, ZoomIn } from "lucide-react";
 
 const SAMPLE_ZONES = [
   {
@@ -50,6 +50,7 @@ export default function FabricZoomMagnifier({ activeImage, onClose }) {
   }
 
   const [lensPos, setLensPos] = useState({ x: 50, y: 50, isHovering: false });
+  const [isLensVisible, setIsLensVisible] = useState(true);
   const imgRef = useRef(null);
 
   // Close modal on Escape key press
@@ -71,16 +72,17 @@ export default function FabricZoomMagnifier({ activeImage, onClose }) {
   };
 
   const handleMouseMove = (e) => {
+    if (!isLensVisible) return;
     updateCoordinates(e.clientX, e.clientY);
   };
 
   const handleTouchMove = (e) => {
-    if (!e.touches[0]) return;
+    if (!isLensVisible || !e.touches[0]) return;
     updateCoordinates(e.touches[0].clientX, e.touches[0].clientY);
   };
 
   const handleTouchStart = (e) => {
-    if (!e.touches[0]) return;
+    if (!isLensVisible || !e.touches[0]) return;
     updateCoordinates(e.touches[0].clientX, e.touches[0].clientY);
   };
 
@@ -141,13 +143,21 @@ export default function FabricZoomMagnifier({ activeImage, onClose }) {
         {/* Outer Stage Container to frame the full uncropped image */}
         <div className="fabric-zoom-stage-container">
           <div
-            className="fabric-zoom-interactive-stage"
+            className={`fabric-zoom-interactive-stage ${!isLensVisible ? "lens-hidden" : ""}`}
             ref={imgRef}
             onMouseMove={handleMouseMove}
-            onMouseEnter={() => setLensPos((prev) => ({ ...prev, isHovering: true }))}
+            onMouseEnter={() => {
+              if (isLensVisible) setLensPos((prev) => ({ ...prev, isHovering: true }));
+            }}
             onMouseLeave={() => setLensPos((prev) => ({ ...prev, isHovering: false }))}
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
+            onClick={() => {
+              if (!isLensVisible) {
+                setIsLensVisible(true);
+                setLensPos((prev) => ({ ...prev, isHovering: true }));
+              }
+            }}
           >
             {/* Base High-Resolution Image — 100% visible, zero cropping */}
             <img
@@ -157,23 +167,25 @@ export default function FabricZoomMagnifier({ activeImage, onClose }) {
             />
 
             {/* Large Square Optical Glass Magnifier Lens with gold bezel & precision optics brackets */}
-            <div
-              className={`fabric-zoom-lens ${lensPos.isHovering ? "active" : ""}`}
-              style={{
-                left: `${lensPos.x}%`,
-                top: `${lensPos.y}%`,
-                backgroundImage: `url(${activeZone.image})`,
-                backgroundPosition: `${lensPos.x}% ${lensPos.y}%`,
-              }}
-            >
-              <div className="lens-specular-glare" />
-              <div className="lens-corner-bracket top-left" />
-              <div className="lens-corner-bracket top-right" />
-              <div className="lens-corner-bracket bottom-left" />
-              <div className="lens-corner-bracket bottom-right" />
-              <div className="lens-crosshair" />
-              <span className="lens-magnification-badge">2.5X MACRO</span>
-            </div>
+            {isLensVisible && (
+              <div
+                className={`fabric-zoom-lens ${lensPos.isHovering ? "active" : ""}`}
+                style={{
+                  left: `${lensPos.x}%`,
+                  top: `${lensPos.y}%`,
+                  backgroundImage: `url(${activeZone.image})`,
+                  backgroundPosition: `${lensPos.x}% ${lensPos.y}%`,
+                }}
+              >
+                <div className="lens-specular-glare" />
+                <div className="lens-corner-bracket top-left" />
+                <div className="lens-corner-bracket top-right" />
+                <div className="lens-corner-bracket bottom-left" />
+                <div className="lens-corner-bracket bottom-right" />
+                <div className="lens-crosshair" />
+                <span className="lens-magnification-badge">2.5X MACRO</span>
+              </div>
+            )}
           </div>
         </div>
 
@@ -181,18 +193,33 @@ export default function FabricZoomMagnifier({ activeImage, onClose }) {
         <div className="fabric-zoom-footer-bar">
           <div className="fabric-zoom-instructions-text">
             <Sparkles size={14} className="gold-text inline-icon" />
-            <span>Hover or drag across garment to inspect microscopic hand-stitching &amp; thread relief</span>
+            <span>
+              {isLensVisible
+                ? "Hover or drag across garment to inspect microscopic hand-stitching & thread relief"
+                : "Full unmagnified view active. Click 'Show Magnifier Glass' or tap image to inspect"}
+            </span>
           </div>
           <div className="fabric-zoom-footer-actions">
-            <span className="fabric-lens-badge">2.5× Square Precision Loupe</span>
+            <span className={`fabric-lens-badge ${!isLensVisible ? "badge-lens-off" : ""}`}>
+              {isLensVisible ? "2.5× Square Precision Loupe" : "Full Garment Mode"}
+            </span>
             <button
               type="button"
-              className="fabric-zoom-exit-btn"
-              onClick={onClose}
-              aria-label="Exit Magnifier"
+              className={`fabric-zoom-exit-btn ${!isLensVisible ? "is-lens-off" : ""}`}
+              onClick={() => setIsLensVisible((prev) => !prev)}
+              aria-label={isLensVisible ? "Exit Magnifier Glass" : "Show Magnifier Glass"}
             >
-              <X size={14} />
-              <span>Exit Magnifier</span>
+              {isLensVisible ? (
+                <>
+                  <EyeOff size={14} />
+                  <span>Exit Magnifier Glass</span>
+                </>
+              ) : (
+                <>
+                  <ZoomIn size={14} />
+                  <span>Show Magnifier Glass</span>
+                </>
+              )}
             </button>
           </div>
         </div>

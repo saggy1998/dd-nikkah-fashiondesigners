@@ -25,13 +25,16 @@
 }
 
 /* ── RESET & BASE SETUP ── */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-html, body {
+html,
+body {
   width: 100%;
   height: 100%;
   background-color: var(--bg-primary);
@@ -215,12 +218,10 @@ button {
 .hero-logo-divider-v {
   width: 1px;
   height: clamp(34px, 5vw, 46px);
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    rgba(212, 175, 55, 0.6) 50%,
-    transparent 100%
-  );
+  background: linear-gradient(180deg,
+      transparent 0%,
+      rgba(212, 175, 55, 0.6) 50%,
+      transparent 100%);
   flex-shrink: 0;
 }
 
@@ -287,10 +288,11 @@ button {
   align-items: flex-end;
   justify-content: center;
   padding-bottom: clamp(28px, 5vh, 56px);
-  pointer-events: none; /* allow scroll-through clicks */
+  pointer-events: none;
+  /* allow scroll-through clicks */
 }
 
-.snap-frame--blank > * {
+.snap-frame--blank>* {
   pointer-events: all;
 }
 
@@ -336,20 +338,24 @@ button {
   left: -100%;
   width: 50%;
   height: 200%;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.4) 50%,
-    transparent 100%
-  );
+  background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.4) 50%,
+      transparent 100%);
   transform: rotate(45deg);
   animation: logoShimmer 4.5s cubic-bezier(0.16, 1, 0.3, 1) infinite;
   pointer-events: none;
 }
 
 @keyframes logoShimmer {
-  0% { left: -100%; }
-  35%, 100% { left: 200%; }
+  0% {
+    left: -100%;
+  }
+
+  35%,
+  100% {
+    left: 200%;
+  }
 }
 
 .logo-brand-mark {
@@ -646,8 +652,15 @@ button {
 }
 
 @keyframes pulseRing {
-  0% { transform: scale(0.9); opacity: 1; }
-  100% { transform: scale(1.6); opacity: 0; }
+  0% {
+    transform: scale(0.9);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
 }
 
 .hotspot-tag-pill {
@@ -928,8 +941,17 @@ button {
 }
 
 @keyframes pulseDot {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.4); opacity: 0.7; }
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.4);
+    opacity: 0.7;
+  }
 }
 
 .guide-banner-text {
@@ -1094,6 +1116,7 @@ button {
   -ms-overflow-style: none;
   flex-shrink: 0;
 }
+
 .fabric-zoom-preset-pills::-webkit-scrollbar {
   display: none;
 }
@@ -1112,7 +1135,8 @@ button {
   white-space: nowrap;
 }
 
-.fabric-preset-btn.active, .fabric-preset-btn:hover {
+.fabric-preset-btn.active,
+.fabric-preset-btn:hover {
   background: rgba(212, 175, 55, 0.2);
   border-color: var(--gold-primary);
   color: var(--gold-bright);
@@ -1147,6 +1171,10 @@ button {
   touch-action: none;
 }
 
+.fabric-zoom-interactive-stage.lens-hidden {
+  cursor: pointer;
+}
+
 /* Full image display with zero cropping in desktop */
 .fabric-zoom-base-img {
   display: block;
@@ -1164,16 +1192,18 @@ button {
   position: absolute;
   width: 250px;
   height: 250px;
-  border-radius: 4px; /* Crisp square loupe form */
+  border-radius: 4px;
+  /* Crisp square loupe form */
   border: 2px solid var(--gold-bright);
-  box-shadow: 
+  box-shadow:
     0 0 0 3px rgba(10, 10, 14, 0.95),
     0 24px 50px rgba(0, 0, 0, 0.9),
     0 0 35px rgba(212, 175, 55, 0.35);
   transform: translate(-50%, -50%);
   pointer-events: none;
   background-repeat: no-repeat;
-  background-size: 320%; /* 2.5x - 3.2x ultra inspection */
+  background-size: 320%;
+  /* 2.5x - 3.2x ultra inspection */
   opacity: 0;
   transition: opacity 0.2s ease;
   overflow: hidden;
@@ -1188,13 +1218,11 @@ button {
 .lens-specular-glare {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.3) 0%,
-    rgba(255, 255, 255, 0.08) 25%,
-    transparent 50%,
-    rgba(212, 175, 55, 0.12) 100%
-  );
+  background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.3) 0%,
+      rgba(255, 255, 255, 0.08) 25%,
+      transparent 50%,
+      rgba(212, 175, 55, 0.12) 100%);
   border-radius: 0;
   pointer-events: none;
 }
@@ -1208,24 +1236,28 @@ button {
   pointer-events: none;
   opacity: 0.95;
 }
+
 .lens-corner-bracket.top-left {
   top: 6px;
   left: 6px;
   border-top: 2px solid var(--gold-bright);
   border-left: 2px solid var(--gold-bright);
 }
+
 .lens-corner-bracket.top-right {
   top: 6px;
   right: 6px;
   border-top: 2px solid var(--gold-bright);
   border-right: 2px solid var(--gold-bright);
 }
+
 .lens-corner-bracket.bottom-left {
   bottom: 6px;
   left: 6px;
   border-bottom: 2px solid var(--gold-bright);
   border-left: 2px solid var(--gold-bright);
 }
+
 .lens-corner-bracket.bottom-right {
   bottom: 6px;
   right: 6px;
@@ -1303,12 +1335,19 @@ button {
   letter-spacing: 0.8px;
   color: var(--gold-bright);
   text-transform: uppercase;
+  transition: all 0.25s ease;
+}
+
+.fabric-lens-badge.badge-lens-off {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: var(--text-muted);
 }
 
 .fabric-zoom-exit-btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
   padding: 6px 16px;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(212, 175, 55, 0.55);
@@ -1317,7 +1356,7 @@ button {
   font-family: var(--font-body);
   font-size: 0.78rem;
   font-weight: 500;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.4px;
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
@@ -1329,6 +1368,13 @@ button {
   color: var(--gold-bright);
   transform: translateY(-1px);
   box-shadow: 0 4px 14px rgba(212, 175, 55, 0.28);
+}
+
+.fabric-zoom-exit-btn.is-lens-off {
+  background: rgba(212, 175, 55, 0.18);
+  border-color: var(--gold-bright);
+  color: var(--gold-bright);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.25);
 }
 
 .fabric-zoom-exit-btn:active {
@@ -1409,10 +1455,21 @@ button {
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.dot-crimson { background: #8e1822; }
-.dot-gold { background: #d4af37; }
-.dot-champagne { background: #ebd5b3; }
-.dot-sand { background: #cbb49c; }
+.dot-crimson {
+  background: #8e1822;
+}
+
+.dot-gold {
+  background: #d4af37;
+}
+
+.dot-champagne {
+  background: #ebd5b3;
+}
+
+.dot-sand {
+  background: #cbb49c;
+}
 
 .card-highlight-pill {
   display: inline-flex;
@@ -1442,7 +1499,8 @@ button {
 }
 
 .pure-white-ecommerce-card {
-  background: #ffffff; /* REQUIRED PURE WHITE BACKGROUND */
+  background: #ffffff;
+  /* REQUIRED PURE WHITE BACKGROUND */
   color: #111111;
   border-radius: 28px;
   overflow: hidden;
@@ -1757,7 +1815,8 @@ button {
   transition: all 0.2s ease;
 }
 
-.size-pill-btn.active, .size-pill-btn:hover {
+.size-pill-btn.active,
+.size-pill-btn:hover {
   background: rgba(212, 175, 55, 0.2);
   border-color: var(--gold-primary);
   color: #ffffff;
@@ -1964,7 +2023,8 @@ button {
   transition: all 0.25s ease;
 }
 
-.topbar-action-btn:hover, .topbar-action-btn.active-mode {
+.topbar-action-btn:hover,
+.topbar-action-btn.active-mode {
   border-color: var(--gold-primary);
   color: var(--gold-bright);
   background: rgba(20, 20, 28, 0.92);
@@ -2055,8 +2115,14 @@ button {
 }
 
 /* ── UTILITY HELPERS ── */
-.gold-text { color: var(--gold-bright); }
-.inline-icon { display: inline-block; vertical-align: middle; }
+.gold-text {
+  color: var(--gold-bright);
+}
+
+.inline-icon {
+  display: inline-block;
+  vertical-align: middle;
+}
 
 /* ── RESPONSIVE ADAPTATIONS (MOBILE & TABLET) ── */
 /* ══ RESPONSIVE ADAPTATIONS (MOBILE & TABLET - 9:16 OPTIMIZED) ══ */
@@ -2142,7 +2208,8 @@ button {
 }
 
 /* Mobile & Exact 9:16 Viewport (<= 640px and Aspect Ratio <= 9/16) */
-@media (max-width: 640px), (max-aspect-ratio: 9/16) {
+@media (max-width: 640px),
+(max-aspect-ratio: 9/16) {
   .snap-frame {
     padding: 54px 10px 16px;
     display: flex;
@@ -2222,9 +2289,11 @@ button {
   .snap-card::-webkit-scrollbar {
     width: 3px;
   }
+
   .snap-card::-webkit-scrollbar-track {
     background: transparent;
   }
+
   .snap-card::-webkit-scrollbar-thumb {
     background: rgba(212, 175, 55, 0.35);
     border-radius: 3px;
@@ -2236,19 +2305,24 @@ button {
     background: #000000;
     border: 1px solid rgba(212, 175, 55, 0.5);
   }
+
   .designer-logo-badge--inline {
     margin-bottom: 2px;
   }
+
   .designer-logo-inner {
     gap: 8px;
   }
+
   .logo-brand-mark {
     font-size: 0.92rem;
     padding-right: 8px;
   }
+
   .logo-brand-name {
     font-size: 0.82rem;
   }
+
   .logo-brand-sub {
     font-size: 0.52rem;
   }
@@ -2280,10 +2354,12 @@ button {
     gap: 8px;
     margin: 2px 0;
   }
+
   .quote-mark-icon {
     width: 14px;
     height: 14px;
   }
+
   .quote-text {
     font-size: 0.8rem;
     line-height: 1.4;
@@ -2305,10 +2381,12 @@ button {
     align-items: center;
     text-align: center;
   }
+
   .stat-value {
     font-size: 0.8rem;
     line-height: 1.2;
   }
+
   .stat-label {
     font-size: 0.52rem;
     letter-spacing: 0.5px;
@@ -2318,6 +2396,7 @@ button {
   .card-footer-action {
     margin-top: 4px;
   }
+
   .card-cta-gold-link {
     font-size: 0.74rem;
     padding: 4px 0;
@@ -2336,17 +2415,21 @@ button {
     border-radius: 12px;
     margin-top: 4px;
   }
+
   .zoom-prompt-tag {
     font-size: 0.56rem;
     letter-spacing: 1.2px;
   }
+
   .zoom-prompt-info h4 {
     font-size: 0.82rem;
   }
+
   .zoom-prompt-info p {
     font-size: 0.68rem;
     line-height: 1.3;
   }
+
   .open-magnifier-btn {
     padding: 7px 12px;
     font-size: 0.72rem;
@@ -2359,6 +2442,7 @@ button {
     gap: 8px;
     margin-top: 4px;
   }
+
   .card-cta-secondary-link,
   .card-cta-gold-link {
     flex: 1;
@@ -2373,17 +2457,20 @@ button {
   .hotspot-pin-wrapper {
     gap: 4px;
   }
+
   .hotspot-pulse-button {
     width: 32px;
     height: 32px;
     min-width: 32px;
     min-height: 32px;
   }
+
   .hotspot-tag-pill {
     padding: 3px 7px;
     background: #000000;
     border: 1px solid rgba(212, 175, 55, 0.45);
   }
+
   .hotspot-tag-text {
     font-size: 0.56rem;
     letter-spacing: 0.5px;
@@ -2426,13 +2513,16 @@ button {
     background: #000000;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
+
   .hotspot-drawer-eyebrow {
     font-size: 0.62rem;
   }
+
   .hotspot-drawer-title {
     font-size: 1.1rem;
     margin-top: 2px;
   }
+
   .hotspot-close-btn {
     width: 34px;
     height: 34px;
@@ -2464,23 +2554,28 @@ button {
     gap: 10px;
     background: #000000;
   }
+
   .hotspot-drawer-desc {
     font-size: 0.8rem;
     line-height: 1.45;
   }
+
   .hotspot-specs-grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 6px;
     padding-top: 8px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
+
   .hotspot-spec-item {
     flex-direction: column;
     gap: 3px;
   }
+
   .spec-label {
     font-size: 0.58rem;
   }
+
   .spec-value {
     font-size: 0.72rem;
   }
@@ -2492,6 +2587,7 @@ button {
     background: #000000;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
+
   .hotspot-dismiss-btn {
     padding: 11px;
     background: #050508;
@@ -2512,52 +2608,63 @@ button {
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.85), 0 0 25px rgba(212, 175, 55, 0.2);
     margin: 0 auto;
   }
+
   .white-card-media-col {
     padding: 10px 10px 0;
     background: #ffffff;
   }
+
   .product-shot-white-frame {
     height: clamp(130px, 18vh, 165px);
     background: #ffffff;
     border-radius: 12px;
   }
+
   .white-card-details-col {
     padding: 12px 14px 16px;
     gap: 8px;
     background: #ffffff;
   }
+
   .white-card-eyebrow {
     font-size: 0.58rem;
     letter-spacing: 1.2px;
   }
+
   .white-card-product-title {
     font-size: 1.22rem;
     line-height: 1.2;
     color: #000000;
   }
+
   .white-card-desc {
     font-size: 0.76rem;
     line-height: 1.38;
     color: #333333;
   }
+
   .white-card-price-row {
     padding: 6px 0;
     gap: 10px;
     border-top: 1px solid #eeeeee;
     border-bottom: 1px solid #eeeeee;
   }
+
   .price-tag {
     font-size: 1.25rem;
     color: #000000;
   }
+
   .price-lead-time {
     font-size: 0.7rem;
     color: #555555;
   }
+
   .white-card-actions {
     gap: 6px;
     margin-top: 2px;
   }
+
   .buy-now-cta-button {
     padding: 11px 18px;
     font-size: 0.78rem;
@@ -2566,6 +2673,7 @@ button {
     border: 1.5px solid var(--gold-primary);
     border-radius: 999px;
   }
+
   .open-magnifier-secondary-btn {
     padding: 8px 14px;
     font-size: 0.72rem;
@@ -2574,6 +2682,7 @@ button {
     border: 1px solid #dddddd;
     border-radius: 999px;
   }
+
   .white-card-disclaimer {
     font-size: 0.62rem;
     color: #666666;
@@ -2585,6 +2694,7 @@ button {
     padding: 8px;
     background: rgba(0, 0, 0, 0.94);
   }
+
   .fabric-zoom-modal-window {
     background: #000000;
     border-radius: 16px;
@@ -2595,34 +2705,41 @@ button {
     flex-direction: column;
     overflow: hidden;
   }
+
   .fabric-zoom-header {
     flex-shrink: 0;
     padding: 12px 14px 10px;
     background: #000000;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
+
   .fabric-zoom-eyebrow {
     font-size: 0.6rem;
     letter-spacing: 1.5px;
   }
+
   .fabric-zoom-title {
     font-size: 1.15rem;
   }
+
   .fabric-zoom-subtitle {
     font-size: 0.72rem;
   }
+
   .fabric-zoom-preset-pills {
     flex-shrink: 0;
     padding: 8px 12px;
     background: #000000;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
+
   .fabric-preset-btn {
     padding: 5px 12px;
     font-size: 0.72rem;
     background: #000000;
     border: 1px solid rgba(255, 255, 255, 0.15);
   }
+
   .fabric-zoom-stage-container {
     padding: 8px 10px;
     flex: 1 1 auto;
@@ -2631,6 +2748,7 @@ button {
     justify-content: center;
     align-items: center;
   }
+
   .fabric-zoom-interactive-stage {
     display: inline-flex;
     justify-content: center;
@@ -2642,6 +2760,7 @@ button {
     border-radius: 8px;
     border: 1px solid rgba(212, 175, 55, 0.3);
   }
+
   .fabric-zoom-base-img {
     max-height: clamp(230px, 46vh, 380px);
     max-width: 100%;
@@ -2649,6 +2768,7 @@ button {
     height: auto;
     object-fit: contain;
   }
+
   /* Large Square Lens on Mobile */
   .fabric-zoom-lens {
     width: clamp(160px, 46vw, 205px);
@@ -2656,32 +2776,39 @@ button {
     border-radius: 3px;
     background-size: 300%;
   }
+
   .lens-corner-bracket {
     width: 10px;
     height: 10px;
   }
+
   .lens-corner-bracket.top-left,
   .lens-corner-bracket.top-right {
     top: 4px;
   }
+
   .lens-corner-bracket.bottom-left,
   .lens-corner-bracket.bottom-right {
     bottom: 4px;
   }
+
   .lens-corner-bracket.top-left,
   .lens-corner-bracket.bottom-left {
     left: 4px;
   }
+
   .lens-corner-bracket.top-right,
   .lens-corner-bracket.bottom-right {
     right: 4px;
   }
+
   .lens-magnification-badge {
     bottom: 6px;
     right: 6px;
     font-size: 0.58rem;
     padding: 2px 6px;
   }
+
   .fabric-zoom-footer-bar {
     flex-shrink: 0;
     padding: 10px 14px;
@@ -2691,10 +2818,12 @@ button {
     align-items: stretch;
     gap: 8px;
   }
+
   .fabric-zoom-instructions-text {
     font-size: 0.72rem;
     line-height: 1.35;
   }
+
   .fabric-zoom-footer-actions {
     display: flex;
     align-items: center;
@@ -2702,10 +2831,12 @@ button {
     width: 100%;
     gap: 10px;
   }
+
   .fabric-lens-badge {
     font-size: 0.65rem;
-    padding: 3px 8px;
+    padding: 4px 8px;
   }
+
   .fabric-zoom-exit-btn {
     padding: 5px 12px;
     font-size: 0.72rem;
@@ -2717,17 +2848,20 @@ button {
   .ecommerce-modal-backdrop {
     background: rgba(0, 0, 0, 0.85);
   }
+
   .ecommerce-modal-dialog {
     background: #000000;
     padding: 20px 16px;
     max-width: 100%;
   }
+
   .ecommerce-product-summary-card {
     background: #000000;
     border: 1px solid rgba(255, 255, 255, 0.14);
     padding: 10px;
     gap: 12px;
   }
+
   .ecommerce-summary-img-wrap {
     width: 65px;
     height: 80px;
@@ -2748,6 +2882,7 @@ button {
     align-items: center;
     z-index: 70;
   }
+
   .scroll-cue-text {
     font-size: 0.65rem;
     letter-spacing: 1px;
